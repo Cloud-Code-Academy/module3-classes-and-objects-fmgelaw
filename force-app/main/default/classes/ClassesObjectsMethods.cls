@@ -42,7 +42,7 @@ public with sharing class ClassesObjectsMethods {
         // Initialize a String with 'Hello, Salesforce!'
         String greeting = 'Hello, Salesforce!';
         // Get the length of the String
-        Integer StrLenght = greeting.length();      
+        Integer strLenght = greeting.length();      
         // Get a substring of the String of the first 5 characters
         String firstFiveChar = greeting.substring(0, 5);
         // Convert the String to lower case
