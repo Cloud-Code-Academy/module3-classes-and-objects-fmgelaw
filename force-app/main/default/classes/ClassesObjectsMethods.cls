@@ -42,13 +42,13 @@ public with sharing class ClassesObjectsMethods {
         // Initialize a String with 'Hello, Salesforce!'
         String greeting = 'Hello, Salesforce!';
         // Get the length of the String
-        Integer StrLenght = greeting.length();      
+        Integer strLength = greeting.length();      
         // Get a substring of the String of the first 5 characters
         String firstFiveChar = greeting.substring(0, 5);
         // Convert the String to lower case
          String lowerCase = greeting.toLowerCase();
         // Return the list with the string data
-        List<String> strList = new List<String>{String.valueOf(StrLenght), firstFiveChar, lowerCase};
+        List<String> strList = new List<String>{String.valueOf(strLength), firstFiveChar, lowerCase};
         // In the first position add the string length
         // In the second position add the substring
         // In the third position add the string in lower case
@@ -64,13 +64,12 @@ public with sharing class ClassesObjectsMethods {
      */
     public static List<Boolean> checkStringContent(String input) {
         // Initialize a list to store the results
-         List<Boolean> strList = new List<Boolean>();
-        // Check if the string starts with 'Sales'
-        strList.add(input.startsWith('Sales'));
-        // Check if the string ends with 'Force'
-        strList.add(input.endsWith('Force'));
-        // Check if the string contains 'Awesome'
-        strList.add(input.contains('Awesome'));
+        //if you know the list content use constractor to populate list
+         List<Boolean> strList = new List<Boolean>{
+             input.startsWith('Sales'),
+             input.endsWith('Force'),
+             input.contains('Awesome')
+         };
         return strList; // Replace null with the variable you used to store the result
     }
 
@@ -83,14 +82,18 @@ public with sharing class ClassesObjectsMethods {
      */
     public static String removeDuplicateWords(String sentence) {
         // Split the sentence into words
-        List<String> wordsList = sentence.split(' ');
+       /* List<String> wordsList = sentence.split(' ');
         // Create a set to store the unique words
         Set<String> uniqueWords = new Set<String>(wordsList);
         // Add each word to the set
         // Join the unique words back into a sentence
         String uniqueWordsSentence = String.join(uniqueWords, ' ');
         // Return the sentence with unique words
-        return uniqueWordsSentence; // Replace null with the variable you used to store the result
+        return uniqueWordsSentence;*/ // Replace null with the variable you used to store the result
+       /* Start thinking about the number of Variables, Lists, Sets, Maps, etc. that you are using in your code. 
+       These all take up Memory (Heap Size) which is a finite resource with a Limit per transaction. 
+       While these remain in Scope they are taking up some of that memory.*/
+       return String.join(new Set<String>(sentence.split(' ')), ' ');
     }
 
     /**
@@ -115,6 +118,9 @@ public with sharing class ClassesObjectsMethods {
             }
         }
         return numOfVowels; // Replace null with the variable you used to store the result
+        //If you wanted to you could split the String into a List of it's characters and then use a for each loop as well.
+        /*List<String> strList = str.split('');
+        for (String currChar : strList) {*/
     }
 
     /**
@@ -413,12 +419,10 @@ public with sharing class ClassesObjectsMethods {
      * @return The Person object of the older person.
      */
     public static Person getOlderPerson(Person person1, Person person2) {
-        if(person1.getAge() > person2.getAge()){
+       if (person1.getAge() >= person2.getAge()) {
             return person1;
-        } else if (person1.getAge() < person2.getAge()){
-            return person2;
         } else {
-            return person1;
+            return person2;
         }
         //return null; // Replace null with the variable you used to store the result
     }
